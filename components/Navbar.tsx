@@ -7,7 +7,6 @@ const NAV_LINKS = [
   { label: 'Story', href: '#story' },
   { label: 'Menu', href: '#menu' },
   { label: 'Testimonials', href: '#testimonials' },
-  { label: 'Order', href: '#buy' },
 ]
 
 export function Navbar() {
@@ -71,15 +70,6 @@ export function Navbar() {
 
           {/* Right side */}
           <div className="flex items-center gap-4">
-            {/* Status indicator */}
-            <div className={`hidden items-center gap-2 rounded-full border px-4 py-1.5 md:flex transition-colors duration-300 ${
-              elevated ? 'border-white/10 bg-white/5' : 'border-[rgba(36,66,46,0.1)] bg-[rgba(255,255,255,0.4)]'
-            }`}>
-              <span className="h-1.5 w-1.5 rounded-full bg-[#2F6B3F] animate-pulse" />
-              <span className={`text-[10px] font-extrabold uppercase tracking-widest ${elevated ? 'text-white/70' : 'text-[#2F6B3F]'}`}>
-                Live Selection
-              </span>
-            </div>
 
             {/* CTA */}
             <motion.a
