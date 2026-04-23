@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  basePath: '/zalada',
+  // Removed basePath because zalada.in is the root
   trailingSlash: true,
   images: {
     unoptimized: true,
@@ -9,4 +9,3 @@ const nextConfig = {
 }
 
 export default nextConfig
-
