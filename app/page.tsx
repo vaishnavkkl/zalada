@@ -2,6 +2,7 @@
 
 import { memo, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import Image from 'next/image'
 import { Footer } from '@/components/Footer'
 import { Navbar } from '@/components/Navbar'
 import { SaladBowlScroll } from '@/components/SaladBowlScroll'
@@ -89,11 +90,11 @@ const MenuCard = memo(function MenuCard({
       className="group relative h-[30rem] w-full cursor-pointer overflow-hidden rounded-[2.5rem] bg-[#122018] shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_30px_60px_rgba(0,0,0,0.3)]"
     >
       {src ? (
-        <img
+        <Image
           src={src}
           alt={title}
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
-          loading="lazy"
+          fill
+          className="object-cover transition-transform duration-1000 group-hover:scale-105"
         />
       ) : (
         <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-[#1E3F2E] to-[#122018]" />
@@ -107,9 +108,6 @@ const MenuCard = memo(function MenuCard({
       <div className="absolute inset-x-5 top-5 flex items-start justify-between">
         <span className="rounded-full border border-white/20 bg-black/30 px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-[#DCE465] backdrop-blur-md">
           {calories}
-        </span>
-        <span className="rounded-full border border-white/40 bg-white/10 px-3 py-1 text-sm font-bold text-white backdrop-blur-md">
-          ₹{price}
         </span>
       </div>
 
@@ -132,6 +130,59 @@ const MenuCard = memo(function MenuCard({
         </div>
       </div>
     </motion.div>
+  )
+})
+
+/* ── FAQ Section ───────────────────────────────────────── */
+const FAQS = [
+  { q: 'Where does Zalada deliver?', a: 'Zalada currently delivers premium salad bowls to Technopark, Sreekariyam, and surrounding areas in Trivandrum through Swiggy and Zomato.' },
+  { q: 'Are your salad ingredients organic?', a: 'We source our ingredients from regenerative local farms. While not all items are certified organic, we prioritize farm-fresh, pesticide-free produce to ensure maximum nutritional value.' },
+  { q: 'Can I order a custom salad bowl?', a: 'Currently, our menu features chef-crafted compositions designed for perfect flavor balance and cellular vitality. We do not offer custom bowls, but our diverse menu caters to most dietary preferences.' },
+
+]
+
+const FaqSection = memo(function FaqSection() {
+  const [open, setOpen] = useState<number | null>(null)
+  
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQS.map((faq) => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.a
+      }
+    }))
+  }
+
+  return (
+    <RevealSection id="faq" className="mt-40 py-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <div className="text-center mb-16">
+        <p className="label-font text-[#AC624B]">Common Questions</p>
+        <h2 className="display-font mt-4 text-5xl text-[#122018]">Frequently Asked Questions</h2>
+      </div>
+      <div className="mx-auto max-w-3xl space-y-4">
+        {FAQS.map((faq, i) => (
+          <div key={i} className="glass-card rounded-2xl overflow-hidden border border-[rgba(36,66,46,0.1)] transition-all">
+            <button 
+              className="w-full px-6 py-5 text-left flex justify-between items-center text-lg font-bold text-[#122018]"
+              onClick={() => setOpen(open === i ? null : i)}
+            >
+              {faq.q}
+              <span className={`transform transition-transform duration-300 ${open === i ? 'rotate-180' : ''}`}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div className={`overflow-hidden transition-all duration-300 ${open === i ? 'max-h-48' : 'max-h-0'}`}>
+              <p className="px-6 pb-5 text-base text-[#3a5e48]/80">{faq.a}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </RevealSection>
   )
 })
 
@@ -226,9 +277,9 @@ export default function Page() {
             <RevealSection id="buy" className="py-24">
               <motion.div
                 whileHover={{ y: -4 }}
-                className="relative overflow-hidden rounded-[3.5rem] p-[1px] shadow-[0_50px_100px_rgba(18,32,24,0.15)] bg-gradient-to-br from-white/10 to-white/5"
+                className="relative overflow-hidden rounded-[3.5rem] rounded-bl-[3.5rem] p-[1px] shadow-[0_50px_100px_rgba(18,32,24,0.15)] bg-gradient-to-br from-white/10 to-white/5"
               >
-                <div className="relative overflow-hidden rounded-[3.45rem] bg-[#122018] px-8 py-16 md:p-20">
+                <div className="relative overflow-hidden rounded-[3.45rem] rounded-bl-[3.45rem] bg-[#122018] px-8 py-16 md:p-20">
                   {/* Stylized depth elements */}
                   <div className="pointer-events-none absolute -right-24 -top-24 h-[30rem] w-[30rem] rounded-full bg-[#2F6B3F]/20 blur-[100px] opacity-60" />
                   <div className="pointer-events-none absolute -bottom-32 -left-24 h-[30rem] w-[30rem] rounded-full bg-[#AC624B]/10 blur-[100px] opacity-60" />
@@ -238,9 +289,9 @@ export default function Page() {
                     <div className="max-w-xl">
                       <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#cbdace]/40">Selection Phase</p>
                       <h3 className="display-font mt-6 text-4xl text-white md:text-6xl leading-tight">
-                        {product.buyNowSection.price}
+                        Ready to Order?
                       </h3>
-                      <p className="mt-4 text-xl text-[#cbdace]/60 font-medium italic">{product.buyNowSection.unit}</p>
+                      <p className="mt-4 text-xl text-[#cbdace]/60 font-medium italic">Freshly crafted for you</p>
                       
                       <div className="mt-12 flex flex-wrap gap-3">
                         {product.buyNowSection.processingParams.map((p) => (
@@ -365,6 +416,9 @@ export default function Page() {
                 ))}
               </div>
             </RevealSection>
+
+            {/* FAQ Section */}
+            <FaqSection />
 
           </div>
         </motion.div>

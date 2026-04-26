@@ -3,10 +3,13 @@
 import { motion, useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
 import { useState, useRef } from 'react'
 
+import Link from 'next/link'
+
 const NAV_LINKS = [
-  { label: 'Story', href: '#story' },
-  { label: 'Menu', href: '#menu' },
-  { label: 'Testimonials', href: '#testimonials' },
+  { label: 'Menu', href: '/#menu' },
+  { label: 'Testimonials', href: '/#testimonials' },
+  { label: 'FAQ', href: '/#faq' },
+  { label: 'Our Story', href: '/story' },
 ]
 
 export function Navbar() {
@@ -33,19 +36,19 @@ export function Navbar() {
         <div className="flex items-center justify-between gap-4">
 
           {/* Logo */}
-          <a href="#top" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-3 group">
             <div className="relative flex h-9 w-9 items-center justify-center rounded-full bg-[#2F6B3F] shadow-[0_4px_14px_rgba(47,107,63,0.3)] transition-transform duration-500 group-hover:scale-110">
               <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5 text-white" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 2C6 2 2 8 2 14c0 4 2 8 10 9 8-1 10-5 10-9 0-6-4-12-10-12z" />
               </svg>
             </div>
             <span className={`display-font text-2xl tracking-tight transition-colors duration-300 ${elevated ? 'text-white' : 'text-[#122018]'}`}>Zalada</span>
-          </a>
+          </Link>
 
           {/* Nav links */}
           <nav className="hidden items-center gap-1 md:flex">
             {NAV_LINKS.map(({ label, href }) => (
-              <a
+              <Link
                 key={label}
                 href={href}
                 onMouseEnter={() => setHovered(label)}
@@ -64,7 +67,7 @@ export function Navbar() {
                   />
                 )}
                 <span className="relative z-10">{label}</span>
-              </a>
+              </Link>
             ))}
           </nav>
 
