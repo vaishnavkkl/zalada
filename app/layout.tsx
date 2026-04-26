@@ -61,6 +61,10 @@ export const metadata: Metadata = {
     description: 'Fresh, chef-crafted salad bowls delivered to your desk in Technopark, Trivandrum.',
     images: ['/menu/DSC02327.JPG.jpeg'],
   },
+  icons: {
+    icon: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
   robots: {
     index: true,
     follow: true,
