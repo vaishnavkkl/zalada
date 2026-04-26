@@ -19,15 +19,15 @@ const VIDEO_BG = '#EDEDEB'
 const TAGS = ['Farm Fresh', 'Zero Preservatives', 'Chef Crafted', 'Cold Chain']
 
 export function SaladBowlScroll({ product }: SaladBowlScrollProps) {
-  const sectionRef       = useRef<HTMLElement | null>(null)
-  const stageRef         = useRef<HTMLDivElement | null>(null)
-  const canvasRef        = useRef<HTMLCanvasElement | null>(null)
-  const frameImagesRef   = useRef<HTMLImageElement[]>([])
+  const sectionRef = useRef<HTMLElement | null>(null)
+  const stageRef = useRef<HTMLDivElement | null>(null)
+  const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const frameImagesRef = useRef<HTMLImageElement[]>([])
   const canvasMetricsRef = useRef({ width: 0, height: 0, dpr: 0 })
-  const rafRef           = useRef<number | null>(null)
+  const rafRef = useRef<number | null>(null)
   const latestProgressRef = useRef(0)
 
-  const [ready, setReady]           = useState(false)
+  const [ready, setReady] = useState(false)
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -41,30 +41,30 @@ export function SaladBowlScroll({ product }: SaladBowlScrollProps) {
     restDelta: 0.0004,
   })
 
-  // Hero headline parallax — slides up gently as you scroll
-  const headlineY       = useTransform(smoothProgress, [0, 0.25], [0, -32])
+  // Hero headline parallax — slide up gently as you scroll
+  const headlineY = useTransform(smoothProgress, [0, 0.25], [0, -32])
   const headlineOpacity = useTransform(smoothProgress, [0, 0.20], [1, 0])
   // Image scales slightly into view from below
-  const imageScale      = useTransform(smoothProgress, [0, 0.12], [0.94, 1])
-  const imageY          = useTransform(smoothProgress, [0, 0.12], [20, 0])
+  const imageScale = useTransform(smoothProgress, [0, 0.12], [0.94, 1])
+  const imageY = useTransform(smoothProgress, [0, 0.12], [20, 0])
 
   // ── Canvas draw ─────────────────────────────────────────────────
   const drawFrame = (progress: number) => {
     const canvas = canvasRef.current
-    const stage  = stageRef.current
+    const stage = stageRef.current
     if (!canvas || !stage || frameImagesRef.current.length === 0) return
 
-    const idx   = Math.floor(clamp(progress, 0, 1) * (product.frameCount - 1))
+    const idx = Math.floor(clamp(progress, 0, 1) * (product.frameCount - 1))
     const frame = frameImagesRef.current[idx]
     if (!frame || !frame.complete) return
 
-    const width  = stage.clientWidth
+    const width = stage.clientWidth
     const height = stage.clientHeight
-    const dpr    = Math.min(window.devicePixelRatio || 1, 2) // Cap DPR at 2 for performance
-    
+    const dpr = Math.min(window.devicePixelRatio || 1, 2) // Cap DPR at 2 for performance
+
     const nW = Math.round(width * dpr)
     const nH = Math.round(height * dpr)
-    
+
     const ctx = canvas.getContext('2d', { alpha: false }) // Disable alpha if possible for faster clear
     if (!ctx) return
 
@@ -73,7 +73,7 @@ export function SaladBowlScroll({ product }: SaladBowlScrollProps) {
       canvasMetricsRef.current.height !== nH ||
       canvasMetricsRef.current.dpr !== dpr
     ) {
-      canvas.width  = nW
+      canvas.width = nW
       canvas.height = nH
       canvasMetricsRef.current = { width: nW, height: nH, dpr }
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
@@ -106,8 +106,8 @@ export function SaladBowlScroll({ product }: SaladBowlScrollProps) {
 
     const images = Array.from({ length: product.frameCount }, (_, i) => {
       const img = new Image()
-      const n   = String(i + 1).padStart(product.framePad, '0')
-      img.src   = `${product.folderPath}/${product.framePrefix}${n}.${product.frameExtension}`
+      const n = String(i + 1).padStart(product.framePad, '0')
+      img.src = `${product.folderPath}/${product.framePrefix}${n}.${product.frameExtension}`
       return img
     })
     frameImagesRef.current = images
