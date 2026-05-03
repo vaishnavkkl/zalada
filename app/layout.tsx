@@ -62,8 +62,11 @@ export const metadata: Metadata = {
     images: ['/menu/DSC02327.JPG.jpeg'],
   },
   icons: {
-    icon: '/favicon.svg',
-    apple: '/favicon.svg',
+    icon: [
+      { url: '/zalada_logo.jpg' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    apple: '/zalada_logo.jpg',
   },
   robots: {
     index: true,
