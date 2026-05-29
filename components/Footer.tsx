@@ -47,10 +47,6 @@ export function Footer() {
           <div className="md:text-right">
             <p className="label-font text-[#AC624B] mb-4">Contact & Location</p>
             <p className="text-sm font-bold text-[#122018]">Salad, Healthy Food</p>
-            <p className="mt-2 text-sm leading-relaxed text-[#3a5e48]/70 max-w-[280px] md:ml-auto">
-              Skra A 57, First Floor, Sivalochanam (kailas),<br />
-              Temple Line, Sreekariyam, Trivandrum
-            </p>
             <a href="tel:+919744396337" className="mt-4 block text-base font-bold text-[#2F6B3F] hover:text-[#AC624B] transition-colors">
               +91 97443 96337
             </a>
