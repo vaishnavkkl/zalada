@@ -1,47 +1,37 @@
-import { DM_Sans, Fraunces, Instrument_Serif } from 'next/font/google'
 import './globals.css'
-
-// Modern sans for body
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800'],
-  variable: '--font-sans',
-  display: 'swap',
-})
-
-// Organic serif for headers
-const fraunces = Fraunces({
-  subsets: ['latin'],
-  variable: '--font-serif',
-  display: 'swap',
-})
-
-const instrumentSerif = Instrument_Serif({
-  subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-serif-display',
-  display: 'swap',
-})
-
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Zalada | Premium Salad Bowls Delivered in Technopark, Trivandrum',
+    default: "Zalada | Premium Salad Bowls And Kerala's First Salad Vending Machine",
     template: '%s | Zalada',
   },
-  description: 'Zalada offers premium, farm-fresh salad bowls delivered directly to Technopark and Sreekariyam, Trivandrum. Order via Swiggy or Zomato for healthy, delicious meals.',
-  keywords: ['salads Trivandrum', 'healthy food Technopark', 'salad delivery Sreekariyam', 'Zalada', 'fresh salad bowls', 'healthy lunch delivery'],
+  description:
+    "Zalada offers premium farm-fresh salad bowls in Trivandrum and Kerala's first ready-to-eat salad vending machine at Technopark Taurus Building. Order via Swiggy or Zomato.",
+  keywords: [
+    'salads Trivandrum',
+    'healthy food Technopark',
+    'salad delivery Sreekariyam',
+    'Kerala first salad vending machine',
+    'Technopark Taurus Building vending machine',
+    'ready to eat salad vending machine',
+    'Zalada',
+    'fresh salad bowls',
+    'healthy lunch delivery',
+  ],
   authors: [{ name: 'Zalada' }],
   creator: 'Zalada',
   publisher: 'Zalada',
-  metadataBase: process.env.VERCEL_URL ? new URL(`https://${process.env.VERCEL_URL}`) : new URL('https://zalada.in'),
+  metadataBase: process.env.VERCEL_URL
+    ? new URL(`https://${process.env.VERCEL_URL}`)
+    : new URL('https://zalada.in'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'Zalada | Premium Salad Bowls Delivered in Trivandrum',
-    description: 'Fresh, chef-crafted salad bowls delivered to your desk in Technopark, Trivandrum. Healthy eating made easy and delicious.',
+    title: "Zalada | Salad Bowls And Kerala's First Salad Vending Machine",
+    description:
+      "Fresh chef-crafted salad bowls in Trivandrum, plus Kerala's first ready-to-eat salad vending machine at Technopark Taurus Building.",
     url: 'https://zalada.in',
     siteName: 'Zalada',
     images: [
@@ -57,8 +47,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Zalada | Premium Salad Bowls',
-    description: 'Fresh, chef-crafted salad bowls delivered to your desk in Technopark, Trivandrum.',
+    title: "Zalada | Salad Bowls And Kerala's First Salad Vending Machine",
+    description:
+      "Fresh salad bowls in Trivandrum and Kerala's first ready-to-eat salad vending machine at Technopark Taurus Building.",
     images: ['/menu/DSC02327.JPG.jpeg'],
   },
   icons: {
@@ -88,31 +79,54 @@ const jsonLd = {
   image: 'https://zalada.in/menu/DSC02327.JPG.jpeg',
   '@id': 'https://zalada.in',
   url: 'https://zalada.in',
+  description:
+    "Premium salad bowls in Trivandrum and Kerala's first ready-to-eat salad vending machine at Technopark Taurus Building.",
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Technopark',
     addressLocality: 'Trivandrum',
     addressRegion: 'KL',
     postalCode: '695581',
-    addressCountry: 'IN'
+    addressCountry: 'IN',
   },
   geo: {
     '@type': 'GeoCoordinates',
     latitude: 8.5581,
-    longitude: 76.8816
+    longitude: 76.8816,
   },
   servesCuisine: 'Salads, Healthy Food',
-  priceRange: '₹₹',
+  priceRange: 'INR 200-400',
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Ready To Eat Salad Vending Machine',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        name: "Kerala's First Salad Vending Machine",
+        description:
+          'Ready-to-eat salad vending at Technopark Taurus Building, Trivandrum.',
+        areaServed: 'Technopark Taurus Building, Trivandrum',
+      },
+    ],
+  },
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      dayOfWeek: [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday',
+      ],
       opens: '10:00',
-      closes: '22:00'
-    }
+      closes: '22:00',
+    },
   ],
   menu: 'https://zalada.in/#menu',
-  acceptsReservations: 'False'
+  acceptsReservations: 'False',
 }
 
 export default function RootLayout({
@@ -128,9 +142,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${dmSans.variable} ${fraunces.variable} ${instrumentSerif.variable} font-sans antialiased`}>
-        {children}
-      </body>
+      <body className="font-sans antialiased">{children}</body>
     </html>
   )
 }

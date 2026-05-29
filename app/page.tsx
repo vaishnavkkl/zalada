@@ -1,7 +1,7 @@
 'use client'
 
 import { memo, useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { Footer } from '@/components/Footer'
 import { Navbar } from '@/components/Navbar'
@@ -64,15 +64,15 @@ const StatCard = memo(function StatCard({ label, val, delay = 0 }: { label: stri
 
 /* ── Menu Data ────────────────────────────────────────── */
 const MENU_ITEMS = [
-  { title: 'Amber Roast Chicken Salad', ingredients: 'Chicken, sweet potato, capsicum(green and yellow), purple cabbage, corn, lettuce, cherry tomato, english cucumber, pomegranate, peanut, cheese', dressing: 'Lemon Mustard Vinaigrette', calories: '300 kcal', price: '220', src: '/menu/DSC02327.JPG.jpeg' },
-  { title: 'BBQ Chicken Harvest Bowl', ingredients: 'BBQ Chicken, herbed carrots, capsicum(green and yellow), purple cabbage, corn, lettuce, cherry tomato, english cucumber, spring onion, sesame seeds, pomegranate, peanut, cheese', dressing: 'Lemon Mustard Vinaigrette', calories: '300 kcal', price: '225', src: '/menu/DSC02320.JPG.jpeg' },
-  { title: 'Orange Zest Chicken Bowl', ingredients: 'Chicken, sweet potato, capsicum(green and yellow), purple cabbage, corn, lettuce, cherry tomato, english cucumber, pomegranate, peanuts, orange slice', dressing: 'Orange Vinaigrette', calories: '300 kcal', price: '225', src: '/menu/DSC02264.JPG.jpeg' },
-  { title: 'Citrus Chicken Rice Bowl', ingredients: 'Chicken, brown rice, chickpeas, capsicum(green and yellow), purple cabbage, corn, lettuce, cherry tomato, english cucumber, peanuts, orange slice, parsley', dressing: 'Orange Vinaigrette', calories: '300 kcal', price: '225', src: '/menu/citrus_chicken_rice_bowl.png' },
-  { title: 'Seoul Fusion Chicken Bowl', ingredients: 'Chicken, noodles, capsicum(green and yellow), purple cabbage, corn, lettuce, cherry tomato, english cucumber, spring onion, sesame seeds, apple, peanuts, cheese', dressing: 'Thai Dressing', calories: '300 kcal', price: '225', src: '/menu/seoul_fusion_chicken_bowl.png' },
-  { title: 'Chicken Pasta Bowl', ingredients: 'Chicken, pasta, capsicum(green and yellow), purple cabbage, corn, lettuce, cherry tomato, english cucumber, apple, peanuts, cheese', dressing: 'Green Goddess Dressing', calories: '300 kcal', price: '220', src: '/menu/chicken_pasta_bowl.png' },
-  { title: 'Protein Packed Paneer Bowl', ingredients: 'Paneer, chickpeas, capsicum(green and yellow), purple cabbage, corn, lettuce, cherry tomato, english cucumber, apple, peanut, cheese', dressing: 'Chipotle Sauce', calories: '300 kcal', price: '215', src: '/menu/protein_packed_paneer_bowl.png' },
-  { title: 'Roasted Paneer & Sweet Potato Bowl', ingredients: 'Paneer, sweet potato, capsicum(green and yellow), purple cabbage, corn, lettuce, cherry tomato, english cucumber, apple, peanut, cheese', dressing: 'Chipotle Sauce', calories: '300 kcal', price: '215', src: '/menu/roasted_paneer_sweet_potato_bowl.png' },
-  { title: 'Soya Sweet Potato Duo', ingredients: 'Glazed soya chunks, sweet potato, capsicum(green and yellow), purple cabbage, corn, lettuce, cherry tomato, english cucumber, sesame seeds, apple, cheese', dressing: 'Chilli Lime', calories: '300 kcal', price: '210', src: '/menu/soya_sweet_potato_duo.png' },
+  { title: 'Amber Roast Chicken Salad', ingredients: 'Chicken, sweet potato, capsicum(green and yellow), purple cabbage, corn, lettuce, cherry tomato, english cucumber, pomegranate, peanut, cheese', dressing: 'Lemon Mustard Vinaigrette', calories: '300 kcal', price: '220', src: '/menu/optimized/DSC02327.jpg' },
+  { title: 'BBQ Chicken Harvest Bowl', ingredients: 'BBQ Chicken, herbed carrots, capsicum(green and yellow), purple cabbage, corn, lettuce, cherry tomato, english cucumber, spring onion, sesame seeds, pomegranate, peanut, cheese', dressing: 'Lemon Mustard Vinaigrette', calories: '300 kcal', price: '225', src: '/menu/optimized/DSC02320.jpg' },
+  { title: 'Orange Zest Chicken Bowl', ingredients: 'Chicken, sweet potato, capsicum(green and yellow), purple cabbage, corn, lettuce, cherry tomato, english cucumber, pomegranate, peanuts, orange slice', dressing: 'Orange Vinaigrette', calories: '300 kcal', price: '225', src: '/menu/optimized/DSC02264.jpg' },
+  { title: 'Citrus Chicken Rice Bowl', ingredients: 'Chicken, brown rice, chickpeas, capsicum(green and yellow), purple cabbage, corn, lettuce, cherry tomato, english cucumber, peanuts, orange slice, parsley', dressing: 'Orange Vinaigrette', calories: '300 kcal', price: '225', src: '/menu/optimized/citrus_chicken_rice_bowl.jpg' },
+  { title: 'Seoul Fusion Chicken Bowl', ingredients: 'Chicken, noodles, capsicum(green and yellow), purple cabbage, corn, lettuce, cherry tomato, english cucumber, spring onion, sesame seeds, apple, peanuts, cheese', dressing: 'Thai Dressing', calories: '300 kcal', price: '225', src: '/menu/optimized/seoul_fusion_chicken_bowl.jpg' },
+  { title: 'Chicken Pasta Bowl', ingredients: 'Chicken, pasta, capsicum(green and yellow), purple cabbage, corn, lettuce, cherry tomato, english cucumber, apple, peanuts, cheese', dressing: 'Green Goddess Dressing', calories: '300 kcal', price: '220', src: '/menu/optimized/chicken_pasta_bowl.jpg' },
+  { title: 'Protein Packed Paneer Bowl', ingredients: 'Paneer, chickpeas, capsicum(green and yellow), purple cabbage, corn, lettuce, cherry tomato, english cucumber, apple, peanut, cheese', dressing: 'Chipotle Sauce', calories: '300 kcal', price: '215', src: '/menu/optimized/protein_packed_paneer_bowl.jpg' },
+  { title: 'Roasted Paneer & Sweet Potato Bowl', ingredients: 'Paneer, sweet potato, capsicum(green and yellow), purple cabbage, corn, lettuce, cherry tomato, english cucumber, apple, peanut, cheese', dressing: 'Chipotle Sauce', calories: '300 kcal', price: '215', src: '/menu/optimized/roasted_paneer_sweet_potato_bowl.jpg' },
+  { title: 'Soya Sweet Potato Duo', ingredients: 'Glazed soya chunks, sweet potato, capsicum(green and yellow), purple cabbage, corn, lettuce, cherry tomato, english cucumber, sesame seeds, apple, cheese', dressing: 'Chilli Lime', calories: '300 kcal', price: '210', src: '/menu/optimized/soya_sweet_potato_duo.jpg' },
 ]
 
 /* ── Menu card ───────────────────────────────────────── */
@@ -94,6 +94,8 @@ const MenuCard = memo(function MenuCard({
           src={src}
           alt={title}
           fill
+          loading="lazy"
+          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition-transform duration-1000 group-hover:scale-105"
         />
       ) : (
@@ -134,6 +136,315 @@ const MenuCard = memo(function MenuCard({
 })
 
 /* ── FAQ Section ───────────────────────────────────────── */
+const VENDING_SEQUENCE = {
+  frameCount: 140,
+  folderPath: '/vending_images',
+  framePrefix: 'ezgif-frame-',
+  framePad: 3,
+  frameExtension: 'jpg',
+  background: '#EDEDEB',
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, value))
+}
+
+const VendingMachineSequence = memo(function VendingMachineSequence() {
+  const sectionRef = useRef<HTMLElement | null>(null)
+  const stageRef = useRef<HTMLDivElement | null>(null)
+  const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const frameImagesRef = useRef<Array<HTMLImageElement | undefined>>([])
+  const loadedFramesRef = useRef<Set<number>>(new Set())
+  const canvasMetricsRef = useRef({ width: 0, height: 0, dpr: 0 })
+  const rafRef = useRef<number | null>(null)
+  const preloadTimerRef = useRef<number | null>(null)
+  const latestProgressRef = useRef(0)
+  const preloadCursorRef = useRef(1)
+  const startedLoadingRef = useRef(false)
+  const [ready, setReady] = useState(false)
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end end'],
+  })
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    damping: 24,
+    stiffness: 280,
+    mass: 0.1,
+    restDelta: 0.0004,
+  })
+  const imageScale = useTransform(smoothProgress, [0, 0.12], [0.94, 1])
+  const imageY = useTransform(smoothProgress, [0, 0.12], [20, 0])
+
+  const getFrameSource = (index: number) => {
+    const frameNumber = String(index + 1).padStart(VENDING_SEQUENCE.framePad, '0')
+    return `${VENDING_SEQUENCE.folderPath}/${VENDING_SEQUENCE.framePrefix}${frameNumber}.${VENDING_SEQUENCE.frameExtension}`
+  }
+
+  const findNearestLoadedFrame = (targetIndex: number) => {
+    for (let offset = 0; offset < VENDING_SEQUENCE.frameCount; offset++) {
+      const lowerIndex = targetIndex - offset
+      if (lowerIndex >= 0 && loadedFramesRef.current.has(lowerIndex)) {
+        return frameImagesRef.current[lowerIndex]
+      }
+
+      const upperIndex = targetIndex + offset
+      if (upperIndex < VENDING_SEQUENCE.frameCount && loadedFramesRef.current.has(upperIndex)) {
+        return frameImagesRef.current[upperIndex]
+      }
+    }
+
+    return undefined
+  }
+
+  const scheduleDraw = () => {
+    if (rafRef.current !== null) return
+
+    rafRef.current = window.requestAnimationFrame(() => {
+      drawFrame(latestProgressRef.current)
+      rafRef.current = null
+    })
+  }
+
+  const loadFrame = (index: number) => {
+    if (index < 0 || index >= VENDING_SEQUENCE.frameCount || frameImagesRef.current[index]) return
+
+    const image = new window.Image()
+    image.decoding = 'async'
+    image.onload = () => {
+      loadedFramesRef.current.add(index)
+      if (index === 0) setReady(true)
+      scheduleDraw()
+    }
+    image.onerror = () => {
+      if (index === 0) setReady(true)
+    }
+    image.src = getFrameSource(index)
+    frameImagesRef.current[index] = image
+  }
+
+  const preloadNextBatch = () => {
+    if (preloadCursorRef.current >= VENDING_SEQUENCE.frameCount) return
+
+    for (let count = 0; count < 3 && preloadCursorRef.current < VENDING_SEQUENCE.frameCount; count++) {
+      loadFrame(preloadCursorRef.current)
+      preloadCursorRef.current += 1
+    }
+
+    preloadTimerRef.current = window.setTimeout(preloadNextBatch, 120)
+  }
+
+  const startFrameLoading = () => {
+    if (startedLoadingRef.current) return
+
+    startedLoadingRef.current = true
+    loadFrame(0)
+    preloadNextBatch()
+  }
+
+  const drawFrame = (progress: number) => {
+    const canvas = canvasRef.current
+    const stage = stageRef.current
+    if (!canvas || !stage || frameImagesRef.current.length === 0) return
+
+    const index = Math.floor(clamp(progress, 0, 1) * (VENDING_SEQUENCE.frameCount - 1))
+    const frame = loadedFramesRef.current.has(index)
+      ? frameImagesRef.current[index]
+      : findNearestLoadedFrame(index)
+    if (!frame || !frame.complete) return
+
+    const width = stage.clientWidth
+    const height = stage.clientHeight
+    const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    const canvasWidth = Math.round(width * dpr)
+    const canvasHeight = Math.round(height * dpr)
+    const ctx = canvas.getContext('2d', { alpha: false })
+    if (!ctx) return
+
+    if (
+      canvasMetricsRef.current.width !== canvasWidth ||
+      canvasMetricsRef.current.height !== canvasHeight ||
+      canvasMetricsRef.current.dpr !== dpr
+    ) {
+      canvas.width = canvasWidth
+      canvas.height = canvasHeight
+      canvasMetricsRef.current = { width: canvasWidth, height: canvasHeight, dpr }
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+    }
+
+    ctx.fillStyle = VENDING_SEQUENCE.background
+    ctx.fillRect(0, 0, width, height)
+
+    const imageRatio = frame.width / frame.height
+    const canvasRatio = width / height
+    let drawWidth = width
+    let drawHeight = height
+    let offsetX = 0
+    let offsetY = 0
+
+    if (imageRatio > canvasRatio) {
+      drawHeight = drawWidth / imageRatio
+      offsetY = (height - drawHeight) / 2
+    } else {
+      drawWidth = drawHeight * imageRatio
+      offsetX = (width - drawWidth) / 2
+    }
+
+    const zoomOut = 0.94
+    ctx.drawImage(
+      frame,
+      offsetX + (drawWidth * (1 - zoomOut)) / 2,
+      offsetY + (drawHeight * (1 - zoomOut)) / 2,
+      drawWidth * zoomOut,
+      drawHeight * zoomOut,
+    )
+  }
+
+  useEffect(() => {
+    const section = sectionRef.current
+    setReady(false)
+    frameImagesRef.current = Array.from({ length: VENDING_SEQUENCE.frameCount })
+    loadedFramesRef.current = new Set()
+
+    let observer: IntersectionObserver | null = null
+    if (section && typeof IntersectionObserver !== 'undefined') {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            startFrameLoading()
+            observer?.disconnect()
+          }
+        },
+        { rootMargin: '1200px 0px' },
+      )
+      observer.observe(section)
+    } else {
+      startFrameLoading()
+    }
+
+    const handleResize = () => drawFrame(latestProgressRef.current)
+    let resizeObserver: ResizeObserver | null = null
+    if (stageRef.current && typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(handleResize)
+      resizeObserver.observe(stageRef.current)
+    }
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      observer?.disconnect()
+      window.removeEventListener('resize', handleResize)
+      resizeObserver?.disconnect()
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
+      if (preloadTimerRef.current !== null) window.clearTimeout(preloadTimerRef.current)
+    }
+  }, [])
+
+  useMotionValueEvent(smoothProgress, 'change', (value) => {
+    latestProgressRef.current = value
+    if (!startedLoadingRef.current) startFrameLoading()
+
+    const index = Math.floor(clamp(value, 0, 1) * (VENDING_SEQUENCE.frameCount - 1))
+    loadFrame(index)
+    loadFrame(index + 1)
+    loadFrame(index - 1)
+    if (!ready) return
+
+    scheduleDraw()
+  })
+
+  return (
+    <section ref={sectionRef} id="vending-machine" className="relative h-[320vh]">
+      <div
+        className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden"
+        style={{ backgroundColor: VENDING_SEQUENCE.background }}
+      >
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div
+            className="absolute -top-40 left-1/2 h-[480px] w-[560px] -translate-x-1/2 rounded-full opacity-70 blur-[100px]"
+            style={{ background: 'radial-gradient(circle, #f5f0ea 0%, transparent 70%)' }}
+          />
+          <div
+            className="absolute -bottom-20 left-1/2 h-[200px] w-[700px] -translate-x-1/2 rounded-full opacity-40 blur-[60px]"
+            style={{ background: 'radial-gradient(circle, #d0cdc9 0%, transparent 70%)' }}
+          />
+        </div>
+
+        <motion.div
+          style={{ scale: imageScale, y: imageY }}
+          className="relative z-10 mx-auto w-full max-w-[900px] px-4"
+        >
+          <p className="mb-5 text-center text-[10px] font-bold uppercase tracking-[0.28em] text-[#2F6B3F]/55">
+            Scroll to reveal
+          </p>
+
+          <div
+            ref={stageRef}
+            className="relative aspect-video w-full overflow-hidden"
+          >
+            <canvas
+              ref={canvasRef}
+              className="absolute inset-0 h-full w-full"
+              style={{
+                maskImage: 'radial-gradient(ellipse 50% 48% at center, black 45%, transparent 92%)',
+                WebkitMaskImage: 'radial-gradient(ellipse 50% 48% at center, black 45%, transparent 92%)',
+              }}
+              aria-label="Zalada vending machine salad animation"
+            />
+            {!ready && (
+              <Image
+                src="/vending_images/ezgif-frame-001.jpg"
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 900px, 100vw"
+                className="object-contain opacity-70"
+              />
+            )}
+          </div>
+
+          <div className="mt-4 flex flex-col items-center justify-center gap-2">
+            <span className="text-[10px] uppercase tracking-[0.24em] text-[#2F6B3F]/50">
+              Vending machine salad
+            </span>
+            <motion.div
+              animate={{ y: [0, 6, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+              className="h-4 w-px bg-[#2F6B3F]/30"
+            />
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  )
+})
+
+const VendingMachineInfo = memo(function VendingMachineInfo() {
+  return (
+    <RevealSection id="vending-machine-info" className="py-24">
+      <div className="mx-auto max-w-4xl text-center">
+        <p className="label-font text-[#AC624B]">Vending Launch</p>
+        <h2 className="display-font mt-4 text-5xl leading-[0.95] text-[#122018] md:text-7xl">
+          Kerala&apos;s first vending machine salad
+        </h2>
+        <p className="mx-auto mt-7 max-w-2xl text-base leading-[1.8] text-[#3a5e48]/78 md:text-lg">
+          Zalada&apos;s ready-to-eat salad vending machine is now available in
+          Trivandrum at Technopark, Taurus Building.
+        </p>
+        <div className="mt-9 flex flex-wrap justify-center gap-3">
+          {['Fresh Salad', 'Ready To Eat', 'Technopark Taurus'].map((item) => (
+            <span
+              key={item}
+              className="stat-pill bg-white/45 px-5 py-2 text-[11px] uppercase tracking-[0.14em]"
+            >
+              {item}
+            </span>
+          ))}
+        </div>
+      </div>
+    </RevealSection>
+  )
+})
+
 const FAQS = [
   { q: 'Where does Zalada deliver?', a: 'Zalada currently delivers premium salad bowls to Technopark, Sreekariyam, and surrounding areas in Trivandrum through Swiggy and Zomato.' },
   { q: 'Are your salad ingredients organic?', a: 'We source our ingredients from regenerative local farms. While not all items are certified organic, we prioritize farm-fresh, pesticide-free produce to ensure maximum nutritional value.' },
@@ -287,7 +598,7 @@ export default function Page() {
                   
                   <div className="relative flex flex-col gap-12 lg:flex-row lg:items-center lg:justify-between">
                     <div className="max-w-xl">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#cbdace]/40">Selection Phase</p>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#cbdace]/40"></p>
                       <h3 className="display-font mt-6 text-4xl text-white md:text-6xl leading-tight">
                         Ready to Order?
                       </h3>
@@ -340,6 +651,9 @@ export default function Page() {
                 </div>
               </motion.div>
             </RevealSection>
+
+            <VendingMachineSequence />
+            <VendingMachineInfo />
 
             {/* Testimonials */}
             <RevealSection id="testimonials" className="mt-40 py-16">

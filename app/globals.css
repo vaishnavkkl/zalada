@@ -27,6 +27,10 @@
   
   --radius-pill: 999px;
   --radius-card: 1.5rem;
+
+  --font-sans: 'Avenir Next', 'Nunito Sans', 'Segoe UI', Arial, sans-serif;
+  --font-serif: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+  --font-serif-display: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
 }
 
 /* ─── Reset & Body ────────────────────────────────────── */
