@@ -424,11 +424,11 @@ const VendingMachineInfo = memo(function VendingMachineInfo() {
       <div className="mx-auto max-w-4xl text-center">
         <p className="label-font text-[#AC624B]">Vending Launch</p>
         <h2 className="display-font mt-4 text-5xl leading-[0.95] text-[#122018] md:text-7xl">
-          Kerala&apos;s first vending machine salad
+          India&apos;s first smart salad vending machine
         </h2>
         <p className="mx-auto mt-7 max-w-2xl text-base leading-[1.8] text-[#3a5e48]/78 md:text-lg">
           Zalada&apos;s ready-to-eat salad vending machine is now available in
-          Trivandrum at Technopark, Taurus Building.
+          Trivandrum, Kerala.
         </p>
         <div className="mt-9 flex flex-wrap justify-center gap-3">
           {['Fresh Salad', 'Ready To Eat', 'Technopark Taurus'].map((item) => (
