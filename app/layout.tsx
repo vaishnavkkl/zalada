@@ -3,17 +3,17 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: {
-    default: "Zalada | Premium Salad Bowls And Kerala's First Salad Vending Machine",
+    default: "Zalada | Premium Salad Bowls And India's First Smart Salad Vending Machine",
     template: '%s | Zalada',
   },
   description:
-    "Zalada offers premium farm-fresh salad bowls in Trivandrum and Kerala's first ready-to-eat salad vending machine at Technopark Taurus Building. Order via Swiggy or Zomato.",
+    "Zalada offers premium farm-fresh salad bowls in Trivandrum and India's first smart ready-to-eat salad vending machine, now available in Trivandrum, Kerala. Order via Swiggy or Zomato.",
   keywords: [
     'salads Trivandrum',
     'healthy food Technopark',
     'salad delivery Sreekariyam',
-    'Kerala first salad vending machine',
-    'Technopark Taurus Building vending machine',
+    'India first smart salad vending machine',
+    'salad vending machine Trivandrum Kerala',
     'ready to eat salad vending machine',
     'Zalada',
     'fresh salad bowls',
@@ -29,9 +29,9 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: "Zalada | Salad Bowls And Kerala's First Salad Vending Machine",
+    title: "Zalada | Salad Bowls And India's First Smart Salad Vending Machine",
     description:
-      "Fresh chef-crafted salad bowls in Trivandrum, plus Kerala's first ready-to-eat salad vending machine at Technopark Taurus Building.",
+      "Fresh chef-crafted salad bowls in Trivandrum, plus India's first smart ready-to-eat salad vending machine, now in Trivandrum, Kerala.",
     url: 'https://zalada.in',
     siteName: 'Zalada',
     images: [
@@ -47,9 +47,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Zalada | Salad Bowls And Kerala's First Salad Vending Machine",
+    title: "Zalada | Salad Bowls And India's First Smart Salad Vending Machine",
     description:
-      "Fresh salad bowls in Trivandrum and Kerala's first ready-to-eat salad vending machine at Technopark Taurus Building.",
+      "Fresh salad bowls in Trivandrum and India's first smart ready-to-eat salad vending machine, now in Trivandrum, Kerala.",
     images: ['/menu/DSC02327.JPG.jpeg'],
   },
   icons: {
@@ -80,7 +80,7 @@ const jsonLd = {
   '@id': 'https://zalada.in',
   url: 'https://zalada.in',
   description:
-    "Premium salad bowls in Trivandrum and Kerala's first ready-to-eat salad vending machine at Technopark Taurus Building.",
+    "Premium salad bowls in Trivandrum and India's first smart ready-to-eat salad vending machine, now available in Trivandrum, Kerala.",
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Technopark',
@@ -102,10 +102,10 @@ const jsonLd = {
     itemListElement: [
       {
         '@type': 'Offer',
-        name: "Kerala's First Salad Vending Machine",
+        name: "India's First Smart Salad Vending Machine",
         description:
-          'Ready-to-eat salad vending at Technopark Taurus Building, Trivandrum.',
-        areaServed: 'Technopark Taurus Building, Trivandrum',
+          'Ready-to-eat smart salad vending available in Trivandrum, Kerala.',
+        areaServed: 'Trivandrum, Kerala',
       },
     ],
   },
